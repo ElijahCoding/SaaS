@@ -8,7 +8,7 @@ trait HasConfirmationTokens
 {
   public function generateConfirmationToken()
   {
-    $token = $this->confirmationToken()->create([
+    $this->confirmationToken()->create([
       'token' => $token = str_random(12),
       'expires_at' => $this->getConfirmationTokenExpiry(),
     ]);
