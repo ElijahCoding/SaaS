@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use App\Models\Traits\HasConfirmationTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable,HasConfirmationTokens;
 
     /**
      * The attributes that are mass assignable.
