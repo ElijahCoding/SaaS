@@ -3,8 +3,8 @@
 
 The body of your message.
 
-@component('mail::button', ['url' => ''])
-Activate 
+@component('mail::button', ['url' => route('activation.activate', $token)])
+Activate
 @endcomponent
 
 Thanks,<br>
