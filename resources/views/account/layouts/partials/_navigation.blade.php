@@ -12,3 +12,30 @@
     <a href="{{route('account.password.index')}}">Change Password</a>
   </li>
 </ul>
+
+<hr>
+
+@subscribed
+  <ul class="nav nav-pills nav-stacked">
+    @subscriptionnotcancelled
+      <li>
+        <a href="#">Change plan</a>
+      </li>
+
+      <li>
+        <a href="{{route('account.subscription.cancel.index')}}">Cancel subscription</a>
+      </li>
+    @endsubscriptionnotcancelled
+
+    @subscriptioncancelled
+      <li>
+        <a href="#">Resume subscription</a>
+      </li>
+    @endsubscriptioncancelled
+
+    <li>
+      <a href="#">Update card</a>
+    </li>
+
+  </ul>
+@endsubscribed
