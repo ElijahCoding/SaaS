@@ -1,5 +1,5 @@
 @extends('account.layouts.default')
 
 @section('account.content')
-  resume
+    change plan
 @endsection
