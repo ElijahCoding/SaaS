@@ -8,18 +8,18 @@
                     Subscription
                 </div>
                 <div class="panel-body">
-                    <form action="{{route('subscription.store')}}" method="POST" class="form-horizontal" id="payment-form">
+                    <form action="{{ route('subscription.store') }}" method="POST" class="form-horizontal" id="payment-form">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('plan') ? ' has-error' : '' }}">
                             <label for="plan" class="col-md-4 control-label">Plan</label>
 
                             <div class="col-md-6">
-                              <select name="plan" id="plan" class="form-control">
-                                  @foreach ($plans as $plan)
-                                      <option value="{{ $plan->gateway_id }}" {{ request('plan') === $plan->slug || old('plan') === $plan->gateway_id ? 'selected="selected"' : '' }}>{{ $plan->name }} (£{{ $plan->price }})</option>
-                                  @endforeach
-                              </select>
+                                <select name="plan" id="plan" class="form-control">
+                                    @foreach ($plans as $plan)
+                                        <option value="{{ $plan->gateway_id }}" {{ request('plan') === $plan->slug || old('plan') === $plan->gateway_id ? 'selected="selected"' : '' }}>{{ $plan->name }} (£{{ $plan->price }})</option>
+                                    @endforeach
+                                </select>
 
                                 @if ($errors->has('plan'))
                                     <span class="help-block">
@@ -53,4 +53,39 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="https://checkout.stripe.com/checkout.js"></script>
+    <script>
+        let handler = StripeCheckout.configure({
+            key: '{{ config('services.stripe.key') }}',
+            locale: 'auto',
+            token: function (token) {
+                let form = $('#payment-form')
+
+                $('#pay').prop('disabled', true)
+
+                $('<input>').attr({
+                    type: 'hidden',
+                    name: 'token',
+                    value: token.id
+                }).appendTo(form)
+
+                form.submit();
+            }
+        })
+
+        $('#pay').click(function (e) {
+            handler.open({
+                name: 'Codecourse Ltd.',
+                description: 'Membership',
+                currency: 'gbp',
+                key: '{{ config('services.stripe.key') }}',
+                email: '{{ auth()->user()->email }}'
+            })
+
+            e.preventDefault();
+        })
+    </script>
 @endsection

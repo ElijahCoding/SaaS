@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Subscription;
 use App\Models\Plan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Subscription\SubscriptionStoreRequest;
 
 class SubscriptionController extends Controller
 {
@@ -14,8 +15,17 @@ class SubscriptionController extends Controller
       return view('subscription.index',compact('plans'));
     }
 
-    public function store()
+    public function store(SubscriptionStoreRequest $request)
     {
+      $subscription = $request->user()->newSubscription('main',$request->plan);
 
+      // coupon
+      if ($request->has('coupon')) {
+        $subscription->withCoupon($request->coupon);
+      }
+
+      $subscription->create($request->token);
+
+      return redirect('/')->withSuccess('Thanks for becoming a subscriber.');
     }
 }
