@@ -12,8 +12,11 @@ class SubscriptionCancelController extends Controller
       return view("account.subscription.cancel.index");
     }
 
-    public function store()
+    public function store(Request $request)
     {
-      
+      $request->user()->subscription('main')->cancel();
+
+      return redirect()->route('account.index')
+                        ->withSuccess('Your subscription has been cancelled.');
     }
 }
