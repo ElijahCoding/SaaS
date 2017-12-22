@@ -37,6 +37,12 @@
     <li class="{{ return_if(on_page('account/subscription/card'), 'active') }}">
       <a href="{{ route('account.subscription.card.index') }}">Update card</a>
     </li>
+
+    @teamsubscription
+    <li class="{{ return_if(on_page('account/subscription/team'), 'active') }}">
+      <a href="{{ route('account.subscription.team.index') }}">Manage Team</a>
+    </li>
+    @endteamsubscription
   </ul>
 
   @endsubscribed

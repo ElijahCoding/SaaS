@@ -70,6 +70,14 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.
             Route::post('/card', 'SubscriptionCardController@store')->name('subscription.card.store');
         });
 
+        /**
+         * Team
+         */
+        Route::group(['middleware' => ['subscription.team']], function () {
+            Route::get('/team', 'SubscriptionTeamController@index')->name('subscription.team.index');
+            Route::patch('/team', 'SubscriptionTeamController@update')->name('subscription.team.update');
+        });
+
   });
 
 });

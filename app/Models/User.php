@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Laravel\Cashier\Billable;
+use Laravel\Cashier\Subscription;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Traits\HasConfirmationTokens;
 use App\Models\Traits\HasSubscriptions;
@@ -47,4 +48,22 @@ class User extends Authenticatable
     {
       return $this->hasOne(Team::class);
     }
+
+    public function plan()
+    {
+        return $this->plans->first();
+    }
+
+    public function getPlanAttribute()
+    {
+      return $this->plan();
+    }
+
+    public function plans()
+    {
+        return $this->hasManyThrough(
+            Plan::class, Subscription::class, 'user_id', 'gateway_id', 'id', 'stripe_plan'
+        )->orderBy('subscriptions.created_at', 'desc');
+    }
+
 }

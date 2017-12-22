@@ -3,6 +3,15 @@ namespace App\Models\Traits;
 
 trait HasSubscriptions
 {
+  public function hasTeamSubscription()
+  {
+    return $this->plan->isForTeams();
+  }
+
+  public function doesNotHaveTeamSubscription()
+  {
+    return !$this->hasTeamSubscription();
+  }
 
   public function hasSubscription()
   {
