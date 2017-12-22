@@ -42,4 +42,9 @@ class User extends Authenticatable
     {
       return !$this->activated;
     }
+
+    public function team()
+    {
+      return $this->hasOne(Team::class);
+    }
 }
