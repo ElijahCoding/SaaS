@@ -23,4 +23,55 @@
         </div>
     </div>
 
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        @if ($team->users->count())
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Member Name</th>
+                <th>Member Email</th>
+                <th>Added</th>
+                <th>&nbsp;</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @foreach ($team->users as $user)
+                <tr>
+                  <td>{{$user->name}}</td>
+                  <td>{{$user->email}}</td>
+                  <td>{{$user->pivot->created_at->toDateString()}}</td>
+                  <td>
+                    <a href="">Delete</a>
+                  </td>
+                </tr>
+              @endforeach
+
+            </tbody>
+          </table>
+        @else
+          <p>You've not added any team members yet.</p>
+        @endif
+
+        <form action="{{route('account.subscription.team.member.store')}}" method="POST">
+                {{ csrf_field() }}
+
+                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                    <label for="email" class="control-label">Add a member by email</label>
+                    <input type="text" name="email" id="email" class="form-control" value="{{ old('email') }}">
+
+                    @if ($errors->has('email'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
+                    @endif
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add member</button>
+            </form>
+
+      </div>
+    </div>
 @endsection
