@@ -16,6 +16,7 @@
 <hr>
 
 @subscribed
+  @notpiggybacksubscription
   <ul class="nav nav-pills nav-stacked">
     @subscriptionnotcancelled
       <li class="{{return_if(on_page('account/subscription/swap'), 'active')}}">
@@ -44,5 +45,5 @@
     </li>
     @endteamsubscription
   </ul>
-
-  @endsubscribed
+  @endnotpiggybacksubscription
+@endsubscribed

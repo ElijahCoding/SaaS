@@ -5,7 +5,7 @@ trait HasSubscriptions
 {
   public function hasTeamSubscription()
   {
-    return $this->plan->isForTeams();
+    return optional($this->plan)->isForTeams();
   }
 
   public function doesNotHaveTeamSubscription()
@@ -13,8 +13,23 @@ trait HasSubscriptions
     return !$this->hasTeamSubscription();
   }
 
+  public function hasPiggybackSubscription()
+  {
+    foreach ($this->teams as $team) {
+      if ($team->owner->hasSubscription()) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   public function hasSubscription()
   {
+    if ($this->hasPiggybackSubscription()) {
+      return true;
+    }
+
     return $this->subscribed('main');
   }
 

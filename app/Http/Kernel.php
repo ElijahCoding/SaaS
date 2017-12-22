@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use App\Http\Middleware\Subscription\RedirectIfPiggybackSubscription;
 
 
 class Kernel extends HttpKernel
@@ -66,6 +67,7 @@ class Kernel extends HttpKernel
         'subscription.customer' => \App\Http\Middleware\Subscription\RedirectIfNotCustomer::class,
         'subscription.inactive' => \App\Http\Middleware\Subscription\RedirectIfNotInactive::class,
         'subscription.team' => \App\Http\Middleware\Subscription\RedirectIfNotTeamPlan::class,
+        'subscription.owner' => \App\Http\Middleware\Subscription\RedirectIfPiggybackSubscription::class,
 
     ];
 }
