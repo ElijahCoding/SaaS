@@ -77,10 +77,8 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.
             Route::get('/team', 'SubscriptionTeamController@index')->name('subscription.team.index');
             Route::patch('/team', 'SubscriptionTeamController@update')->name('subscription.team.update');
 
-            /**
-             * Add Team Member
-             */
             Route::post('/team/member', 'SubscriptionTeamMemberController@store')->name('subscription.team.member.store');
+            Route::delete('/team/member/{user}', 'SubscriptionTeamMemberController@destroy')->name('subscription.team.member.destroy');
         });
 
   });

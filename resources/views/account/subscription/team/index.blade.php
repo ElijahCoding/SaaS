@@ -44,7 +44,9 @@
                   <td>{{$user->email}}</td>
                   <td>{{$user->pivot->created_at->toDateString()}}</td>
                   <td>
-                    <a href="">Delete</a>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('remove-{{$user->id}}').submit();">
+                      Delete
+                    </a>
                   </td>
                 </tr>
               @endforeach
@@ -54,6 +56,13 @@
         @else
           <p>You've not added any team members yet.</p>
         @endif
+
+        @foreach ($team->users as $user)
+          <form class="hidden" action="{{route('account.subscription.team.member.destroy', $user)}}" method="post" id="remove-{{$user->id}}">
+            {{csrf_field()}}
+            {{method_field('DELETE')}}
+          </form>
+        @endforeach
 
         <form action="{{route('account.subscription.team.member.store')}}" method="POST">
                 {{ csrf_field() }}

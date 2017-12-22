@@ -24,9 +24,11 @@ class SubscriptionTeamMemberController extends Controller
       return back()->withSuccess('Team member added.');
     }
 
-    public function destroy()
+    public function destroy(User $user, Request $request)
     {
+      $request->user()->team->users()->detach($user->id);
 
+      return back()->withSuccess('Member has been removed.');
     }
 
     protected function teamLimitReached($request)
