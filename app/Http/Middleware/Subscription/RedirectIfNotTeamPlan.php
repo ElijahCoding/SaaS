@@ -15,9 +15,10 @@ class RedirectIfNotTeamPlan
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->doesNotHaveSubscription()) {
+      if (auth()->user()->doesNotHaveTeamSubscription()) {
           return redirect()->route('account.index');
-        }
-        return $next($request);
+      }
+
+      return $next($request);
     }
 }
