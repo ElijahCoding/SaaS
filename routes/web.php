@@ -33,6 +33,12 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.
   Route::get('/password','PasswordController@index')->name('password.index');
   Route::post('/password','PasswordController@store')->name('password.store');
 
+  /**
+  * Deactive
+  */
+  Route::get('/deactive','DeactiveController@index')->name('deactivate.index');
+  Route::post('/deactive','DeactiveController@store')->name('deactivate.store');
+
 
   /**
   * Subscription

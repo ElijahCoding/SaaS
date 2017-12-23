@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Laravel\Cashier\Billable;
 use Laravel\Cashier\Subscription;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Traits\HasConfirmationTokens;
 use App\Models\Traits\HasSubscriptions;
@@ -14,7 +15,8 @@ class User extends Authenticatable
     use Notifiable,
     HasConfirmationTokens,
     Billable,
-    HasSubscriptions;
+    HasSubscriptions,
+    SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

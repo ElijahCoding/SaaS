@@ -11,6 +11,10 @@
   <li class="{{return_if(on_page('*/password'),'active')}}">
     <a href="{{route('account.password.index')}}">Change Password</a>
   </li>
+
+  <li class="{{return_if(on_page('*/deactive'),'active')}}">
+    <a href="{{route('account.deactivate.index')}}">Deactive Account</a>
+  </li>
 </ul>
 
 <hr>
