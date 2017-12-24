@@ -39,6 +39,14 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.
   Route::get('/deactive','DeactiveController@index')->name('deactivate.index');
   Route::post('/deactive','DeactiveController@store')->name('deactivate.store');
 
+  /**
+   * Two Factor Auth
+   */
+  Route::group([], function () {
+      Route::get('/twofactor', 'TwoFactorController@index')->name('twofactor.index');
+      Route::post('/twofactor', 'TwoFactorController@store')->name('twofactor.store');
+      Route::post('/twofactor/verify', 'TwoFactorController@verify')->name('twofactor.verify');
+  });
 
   /**
   * Subscription
@@ -75,6 +83,7 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.
             Route::get('/card', 'SubscriptionCardController@index')->name('subscription.card.index');
             Route::post('/card', 'SubscriptionCardController@store')->name('subscription.card.store');
         });
+
 
         /**
          * Team

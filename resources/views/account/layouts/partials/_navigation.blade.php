@@ -15,6 +15,10 @@
   <li class="{{return_if(on_page('*/deactive'),'active')}}">
     <a href="{{route('account.deactivate.index')}}">Deactive Account</a>
   </li>
+
+  <li class="{{return_if(on_page('*/twofactor'),'active')}}">
+    <a href="{{route('account.twofactor.index')}}">Two factor authentication</a>
+  </li>
 </ul>
 
 <hr>
