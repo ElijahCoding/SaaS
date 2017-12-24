@@ -38,6 +38,10 @@ class TwoFactorController extends Controller
 
     public function verify(TwoFactorVerifyRequest $request)
     {
+      $request->user()->twoFactor()->update([
+        'verified' => true
+      ]);
 
+      return back();
     }
 }

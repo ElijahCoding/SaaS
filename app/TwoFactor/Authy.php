@@ -36,7 +36,18 @@ class Authy implements TwoFactor
 
   public function validateToken(User $user, $token)
   {
-    dd('validate');
+    try {
+      $response = $this->client->request(
+         'GET',
+         'https://api.authy.com/protected/json/verify/' . $token . '/' . $user->twoFactor->identifier . '?force=true&api_key=' . config('services.authy.secret')
+      );
+    } catch(Exception $e) {
+      return false;
+    }
+
+    $response = json_decode($response->getBody(), false);
+
+    return $response->token === 'is valid';
   }
 
   public function delete(User $user)

@@ -2,10 +2,20 @@
 
 namespace App\Http\Requests\TwoFactor;
 
+use App\Models\User;
+use App\Rules\ValidTwoFactorToken;
+use App\TwoFactor\TwoFactor;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TwoFactorVerifyRequest extends FormRequest
 {
+    protected $twofactor;
+
+    public function __construct(TwoFactor $twofactor)
+    {
+        $this->twofactor = $twofactor;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,8 +33,13 @@ class TwoFactorVerifyRequest extends FormRequest
      */
     public function rules()
     {
+
+
         return [
-            'token' => 'required'
+            'token' => [
+                'required', new ValidTwoFactorToken($this->user(), $this->twofactor)
+            ]
         ];
     }
+
 }
