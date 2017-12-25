@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Traits\HasConfirmationTokens;
 use App\Models\Traits\HasTwoFactorAuthentication;
+use App\Models\Traits\HasRoles;
 use App\Models\Traits\HasSubscriptions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -18,7 +19,8 @@ class User extends Authenticatable
     Billable,
     HasSubscriptions,
     SoftDeletes,
-    HasTwoFactorAuthentication;
+    HasTwoFactorAuthentication,
+    HasRoles;
 
     /**
      * The attributes that are mass assignable.
