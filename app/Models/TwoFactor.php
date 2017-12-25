@@ -2,28 +2,31 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class TwoFactor extends Model
 {
     protected $table = 'two_factor';
 
-    protected $guarded = [];
+    protected $fillable = [
+        'phone', 'dial_code', 'identifier', 'verified'
+    ];
 
     public static function boot()
     {
-      static::creating(function($twoFactor) {
-        optional($twoFactor->user->twoFactor)->delete();
-      });
+        static::creating(function ($twoFactor) {
+            optional($twoFactor->user->twoFactor)->delete();
+        });
     }
 
     public function isVerified()
     {
-      return $this->verified;
+        return $this->verified;
     }
 
     public function user()
     {
-      return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 }

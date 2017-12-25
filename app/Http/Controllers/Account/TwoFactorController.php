@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers\Account;
 
-use App\Models\Country;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TwoFactor\TwoFactorStoreRequest;
 use App\Http\Requests\TwoFactor\TwoFactorVerifyRequest;
+use App\Models\Country;
 use App\TwoFactor\TwoFactor;
+use Illuminate\Http\Request;
 
 class TwoFactorController extends Controller
 {
     public function index()
     {
-      $countries = Country::get();
+        $countries = Country::get();
 
-      return view('account.twofactor.index',compact('countries'));
+        return view('account.twofactor.index', compact('countries'));
     }
 
-    public function store(TwoFactorStoreRequest $request,TwoFactor $twofactor)
+    public function store(TwoFactorStoreRequest $request, TwoFactor $twofactor)
     {
-      $user = $request->user();
+        $user = $request->user();
 
         $user->twoFactor()->create([
             'phone' => $request->phone_number,
@@ -38,10 +38,22 @@ class TwoFactorController extends Controller
 
     public function verify(TwoFactorVerifyRequest $request)
     {
-      $request->user()->twoFactor()->update([
-        'verified' => true
-      ]);
+        $request->user()->twoFactor()->update([
+            'verified' => true
+        ]);
+
+        return back();
+    }
+
+    public function destroy(Request $request, TwoFactor $twofactor)
+    {
+      $user = $request->user();
+
+      if ($twofactor->delete($user)) {
+          $user->twoFactor()->delete();
+      }
 
       return back();
+
     }
 }

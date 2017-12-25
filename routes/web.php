@@ -40,13 +40,14 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.
   Route::post('/deactive','DeactiveController@store')->name('deactivate.store');
 
   /**
-   * Two Factor Auth
-   */
-  Route::group([], function () {
-      Route::get('/twofactor', 'TwoFactorController@index')->name('twofactor.index');
-      Route::post('/twofactor', 'TwoFactorController@store')->name('twofactor.store');
-      Route::post('/twofactor/verify', 'TwoFactorController@verify')->name('twofactor.verify');
-  });
+     * Two factor
+     */
+    Route::group([], function () {
+        Route::get('/twofactor', 'TwoFactorController@index')->name('twofactor.index');
+        Route::post('/twofactor', 'TwoFactorController@store')->name('twofactor.store');
+        Route::post('/twofactor/verify', 'TwoFactorController@verify')->name('twofactor.verify');
+        Route::delete('/twofactor', 'TwoFactorController@destroy')->name('twofactor.destroy');
+    });
 
   /**
   * Subscription
