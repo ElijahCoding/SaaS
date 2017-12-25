@@ -33,6 +33,9 @@ class TwoFactorVerifyRequest extends FormRequest
      */
     public function rules()
     {
+        if (session()->has('twofactor')) {
+          $this->setUserResolver($this->UserResolver());
+        }
 
 
         return [
@@ -40,6 +43,13 @@ class TwoFactorVerifyRequest extends FormRequest
                 'required', new ValidTwoFactorToken($this->user(), $this->twofactor)
             ]
         ];
+    }
+
+    protected function UserResolver()
+    {
+      return function() {
+        return User::find(session('twofactor')->user_id);
+      };
     }
 
 }

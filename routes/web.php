@@ -14,6 +14,11 @@ Route::group(['middleware' => ['auth','subscription.active']],function() {
 });
 
 
+Route::group(['middleware' => 'guest'],function() {
+  Route::get('/login/twofactor','Auth\TwoFactorLoginController@index')->name('login.twofactor.index');
+  Route::post('/login/twofactor/verify','Auth\TwoFactorLoginController@verify')->name('login.twofactor.verify');
+});
+
 
 /**
 * Account
