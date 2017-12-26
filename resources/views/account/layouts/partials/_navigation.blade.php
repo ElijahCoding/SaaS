@@ -19,6 +19,10 @@
   <li class="{{return_if(on_page('*/twofactor'),'active')}}">
     <a href="{{route('account.twofactor.index')}}">Two factor authentication</a>
   </li>
+
+  <li class="{{return_if(on_page('*/tokens'),'active')}}">
+    <a href="{{route('account.tokens.index')}}">API tokens</a>
+  </li>
 </ul>
 
 <hr>

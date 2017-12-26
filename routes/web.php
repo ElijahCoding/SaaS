@@ -45,13 +45,21 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth'], 'as' => 'account.
   Route::get('/password','PasswordController@index')->name('password.index');
   Route::post('/password','PasswordController@store')->name('password.store');
 
+
+  /**
+  * Laravel Passport Token
+  */
+  Route::get('/tokens','TokenController@index')->name('tokens.index');
+
+
+
   /**
   * Deactive
   */
   Route::get('/deactive','DeactiveController@index')->name('deactivate.index');
   Route::post('/deactive','DeactiveController@store')->name('deactivate.store');
 
-  /**
+     /**
      * Two factor
      */
     Route::group([], function () {

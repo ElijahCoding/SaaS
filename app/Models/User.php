@@ -11,6 +11,7 @@ use App\Models\Traits\HasTwoFactorAuthentication;
 use App\Models\Traits\HasRoles;
 use App\Models\Traits\HasSubscriptions;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -20,7 +21,8 @@ class User extends Authenticatable
     HasSubscriptions,
     SoftDeletes,
     HasTwoFactorAuthentication,
-    HasRoles;
+    HasRoles,
+    HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
